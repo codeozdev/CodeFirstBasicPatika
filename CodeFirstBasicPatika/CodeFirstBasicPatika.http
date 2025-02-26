@@ -1,0 +1,6 @@
+@CodeFirstBasicPatika_HostAddress = http://localhost:5262
+
+GET {{CodeFirstBasicPatika_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
