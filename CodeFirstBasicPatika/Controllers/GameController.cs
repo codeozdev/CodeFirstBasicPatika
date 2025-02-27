@@ -8,59 +8,57 @@ namespace CodeFirstBasicPatika.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MovieController(PatikaFirstDbContext context) : ControllerBase
+    public class GameController(PatikaFirstDbContext context) : ControllerBase
     {
-        
         private readonly PatikaFirstDbContext _context = context;
         
         [HttpGet]
-        public async Task<IActionResult> GetMovies()
+        public async Task<IActionResult> GetGames()
         {
-            var movies = await _context.Movies.ToListAsync();
-            return Ok(movies);
+            var games = await _context.Games.ToListAsync();
+            return Ok(games);
         }
         
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetMovie(int id)
+        public async Task<IActionResult> GetGame(int id)
         {
-            var movie = await _context.Movies.FindAsync(id);
-            if (movie == null)
+            var game = await _context.Games.FindAsync(id);
+            if (game == null)
             {
                 return NotFound();
             }
-            return Ok(movie);
+            return Ok(game);
         }
         
         [HttpPost]
-        public async Task<IActionResult> AddMovie(Movie movie)
+        public async Task<IActionResult> AddGame(Game game)
         {
-            _context.Movies.Add(movie);
+            _context.Games.Add(game);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetMovie), new { id = movie.Id }, movie);
+            return CreatedAtAction(nameof(GetGame), new { id = game.Id }, game);
         }
         
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateMovie(int id, Movie movie)
+        public async Task<IActionResult> UpdateGame(int id, Game game)
         {
-            if (id != movie.Id)
+            if (id != game.Id)
             {
                 return BadRequest();
             }
-            _context.Entry(movie).State = EntityState.Modified;
+            _context.Entry(game).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return NoContent();
         }
-
+        
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteMovie(int id)
+        public async Task<IActionResult> DeleteGame(int id)
         {
-            var movie = await _context.Movies.FindAsync(id);
-            if (movie == null)
+            var game = await _context.Games.FindAsync(id);
+            if (game == null)
             {
                 return NotFound();
             }
-
-            _context.Movies.Remove(movie);
+            _context.Games.Remove(game);
             await _context.SaveChangesAsync();
             return NoContent();
         }
