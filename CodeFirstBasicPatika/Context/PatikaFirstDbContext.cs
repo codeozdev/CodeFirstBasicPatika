@@ -83,13 +83,9 @@ public class PatikaFirstDbContext(DbContextOptions<PatikaFirstDbContext> options
                 .IsRequired()
                 .HasMaxLength(200); // örnek karakter sınırı
 
-            // Content alanını opsiyonel yapabilirsiniz veya bir alt sınır belirleyebilirsiniz
             entity.Property(p => p.Content)
                 .HasMaxLength(2000); // örnek karakter sınırı
-
-            // UserId foreign key olarak tanımlanacak
-            // Buna aslında EF Core konvansiyonla otomatik karar veriyor,
-            // ancak açıkça belirtmek isterseniz:
+            
             entity.HasOne(p => p.User)
                 .WithMany(u => u.Posts)
                 .HasForeignKey(p => p.UserId)
